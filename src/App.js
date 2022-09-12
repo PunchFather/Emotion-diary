@@ -1,24 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+
+import RouteTest from './components/RotueTest';
+
+import Home from './pages/Home';
+import Edit from './pages/Edit';
+import Diary from './pages/Diary';
+import New from './pages/New';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <h2>app.js</h2>
+        {/* h2부분이 계속 나오는 이유는 라우트 바깥에서 있기 때문, 고정으로 해놔야할 부분은 라우트 밖에다가 해놓자. */}
+        <Routes>
+          {/* route는 실질적으로 컴포넌트 매핍시켜주는 것 */}
+          <Route path='/' element={<Home />} />
+          <Route path='/new' element={<New />} />
+          <Route path='/edit' element={<Edit />} />
+          <Route path='/diary' element={<Diary />} />
+        </Routes>
+        <RouteTest />
+      </div>
+    </BrowserRouter>
   );
 }
 
