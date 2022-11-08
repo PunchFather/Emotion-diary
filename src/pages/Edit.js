@@ -4,7 +4,10 @@ import { useNavigate, useSearchParams } from "react-router-dom"
 const Edit = () => {
 
     const navigate = useNavigate();
+    // navigate = page moving
+    // link 태그 없이도 페이지 이동 가능
     const [searchParams, setSearchParams] = useSearchParams();
+    // queryString
 
     const id = searchParams.get('id');
     console.log('id :', id)

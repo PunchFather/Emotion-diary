@@ -1,30 +1,35 @@
 import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import RouteTest from './components/RotueTest';
 
-import Home from './pages/Home';
-import Edit from './pages/Edit';
-import Diary from './pages/Diary';
-import New from './pages/New';
+import Home from "./pages/Home";
+import New from "./pages/New";
+import Edit from "./pages/Edit";
+import Diary from "./pages/Diary";
+
+
 
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
         <h2>app.js</h2>
-        {/* h2부분이 계속 나오는 이유는 라우트 바깥에서 있기 때문, 고정으로 해놔야할 부분은 라우트 밖에다가 해놓자. */}
+        {/* routes밖인 app.js는 계속 똑같은 화면이 보임 */}
         <Routes>
-          {/* route는 실질적으로 컴포넌트 매핍시켜주는 것 */}
+          {/*컴포넌트 내에서 바뀌어야 할 부분을 Routes로 감싼다.*/}
+          {/* Rotue는 실질적으로 연결해주는 역할 주소 맵핑*/}
           <Route path='/' element={<Home />} />
           <Route path='/new' element={<New />} />
           <Route path='/edit' element={<Edit />} />
-          <Route path='/diary/:id' element={<Diary />} />
+          <Route path='/diary' element={<Diary />} />
         </Routes>
         <RouteTest />
+        {/* RouteTest 컴포넌트를 확인해보면 LInk to를 통해 기존 a태그를 대신해서 사용한다. */}
+
       </div>
     </BrowserRouter>
-  );
+  )
 }
 
 export default App;
