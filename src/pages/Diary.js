@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom"
 const Diary = () => {
 
     const { id } = useParams();
+    // useParams = custome hook
     console.log(id);
 
 
