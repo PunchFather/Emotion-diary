@@ -1,13 +1,61 @@
-import { useParams } from "react-router-dom"
+import { useContext, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom"
+import { DiaryStateContext } from "../App";
+import MyButton from "../components/MyButton";
+import MyHeader from "../components/MyHeader";
+import { getStringDate } from "../utill/date";
+import { emotionList } from "../utill/emotion";
+
 
 const Diary = () => {
 
     const { id } = useParams();
-    // useParams = custome hook
-    console.log(id);
+    const diaryList = useContext(DiaryStateContext);
+    const navigate = useNavigate();
+    const [data, setData] = useState();
 
+    useEffect(() => {
+        if (diaryList.length >= 1) {
+            const targetDiary = diaryList.find((it) => parseInt(it.id) === parseInt(id));
 
-    return <div>Diary.js입니다. 안녕하세요</div>
+            if (targetDiary) {
+                //일기가 존재할때
+                setData(targetDiary);
+            } else {
+                //일기가 존재하지 않을때
+                alert("없는 일기입니다.")
+                navigate('/', { replace: true })
+            }
+        }
+    }, [id, diaryList])
+
+    if (!data) {
+        return <div className="DiaryPage">로딩중입니다...</div>;
+    } else {
+
+        const curEmotionData = emotionList.find((it) => parseInt(it.emotion_id) === parseInt(data.emotion));
+        console.log(curEmotionData)
+        return (
+            <div className="DiaryPage">
+                <MyHeader headText={`${getStringDate(new Date(data.date))} 기록`}
+                    leftChild={<MyButton text={"< 뒤로가기"} onClick={() => navigate(-1)} />}
+                    rightChild={<MyButton text={"수정하기"} onClick={() => navigate(`/edit/${data.id}`)} />}
+                />
+                <article>
+                    <section>
+                        <h4>오늘의 감정</h4>
+                        <div className="diary_img_wrapper">
+                            <img src={curEmotionData.emotion_img} />
+                            <div className="emotion_descript">
+                                {curEmotionData.emotion_descript}
+                            </div>
+                        </div>
+                    </section>
+                </article>
+            </div>
+        )
+    }
+
 
 
 }

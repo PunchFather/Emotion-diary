@@ -121,8 +121,8 @@ function App() {
               {/* Rotue는 실질적으로 연결해주는 역할 주소 맵핑*/}
               <Route path='/' element={<Home />} />
               <Route path='/new' element={<New />} />
-              <Route path='/edit' element={<Edit />} />
-              <Route path='/diary:id' element={<Diary />} />
+              <Route path='/edit/:id' element={<Edit />} />
+              <Route path='/diary/:id' element={<Diary />} />
             </Routes>
             {/* <RouteTest /> */}
             {/* RouteTest 컴포넌트를 확인해보면 LInk to를 통해 기존 a태그를 대신해서 사용한다. */}
