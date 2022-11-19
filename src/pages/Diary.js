@@ -7,7 +7,7 @@ const Diary = () => {
     console.log(id);
 
 
-    return <div>Diary.js입니다.</div>
+    return <div>Diary.js입니다. 안녕하세요</div>
 
 
 }

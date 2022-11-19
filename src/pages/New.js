@@ -1,5 +1,11 @@
+import DiaryEditor from '../components/DirayEditor'
+
 const New = () => {
-    return <div>New.js입니다.</div>
+    return (
+        <div>
+            <DiaryEditor />
+        </div>
+    )
 }
 
 export default New
