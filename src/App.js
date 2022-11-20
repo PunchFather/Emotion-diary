@@ -1,4 +1,4 @@
-import React, { useReducer, useRef } from 'react';
+import React, { useEffect, useReducer, useRef } from 'react';
 
 import './App.css';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -32,47 +32,45 @@ const reducer = (state, action) => {
       return state;
 
   }
-  return newState
+
+  localStorage.setItem('diary', JSON.stringify(newState));
+  return newState;
 };
 
 export const DiaryStateContext = React.createContext();
 export const DiaryDispatchContext = React.createContext();
 
-const dummyData = [
-  {
-    id: 1,
-    emotion: 1,
-    content: "오늘의 일기 1번",
-    date: 1668427680167,
-  },
-  {
-    id: 2,
-    emotion: 2,
-    content: "오늘의 일기 2번",
-    date: 1668427680168,
-  },
-  {
-    id: 3,
-    emotion: 3,
-    content: "오늘의 일기 3번",
-    date: 1668427680169
-  },
-  {
-    id: 4,
-    emotion: 4,
-    content: "오늘의 일기 4번",
-    date: 1668427680170
-  },
-  {
-    id: 5,
-    emotion: 5,
-    content: "오늘의 일기 5번",
-    date: 1668427680171
-  },
-];
 
 function App() {
-  const [data, dispatch] = useReducer(reducer, dummyData);
+
+
+
+
+  // useEffect(() => {
+  //   const item1 = localStorage.getItem("item1");
+  //   const item2 = localStorage.getItem("item2")
+  //   const item3 = JSON.parse(localStorage.getItem("item3"));
+  //   console.log({ item1, item2, item3 });
+
+  // }, [])
+
+
+
+  const [data, dispatch] = useReducer(reducer, []);
+
+  useEffect(() => {
+    const localData = localStorage.getItem('diary');
+    if (localData) {
+      const diaryList = JSON.parse(localData).sort((a, b) => parseInt(b.id) - parseInt(a.id));
+
+      if (diaryList.length >= 1) {
+        dataId.current = parseInt(diaryList[0].id) + 1;
+
+        dispatch({ type: "INIT", data: diaryList });
+      }
+    }
+  }, [])
+
 
   console.log(new Date().getTime())
   // 현재 밀리세컨드 구하는 방법
